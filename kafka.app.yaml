@@ -1,0 +1,32 @@
+apiVersion: core.oam.dev/v1beta1
+kind: Application
+metadata:
+  name: kafka
+spec:
+  components:
+    - name: zookeeper
+      type: webservice
+      properties:
+        image: docker.io/bitnami/zookeeper:3.8
+        replicas: 1
+        ports:
+        - port: 2181
+          expose: true
+        env:
+        - name: ALLOW_ANONYMOUS_LOGIN
+          value: "yes"
+    - name: broker-0
+      type: statefulservice
+      properties:
+        image: docker.io/bitnami/kafka:3.4
+        replicas: 1
+        ports:
+        - port: 9092
+          expose: true
+        env:
+        - name: KAFKA_CFG_ZOOKEEPER_CONNECT
+          value: "zookeeper:2181"
+        - name: KAFKA_CFG_BROKER_ID
+          value: "0"
+        - name: ALLOW_PLAINTEXT_LISTENER
+          value: "yes"
