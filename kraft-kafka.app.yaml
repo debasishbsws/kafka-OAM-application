@@ -1,0 +1,38 @@
+apiVersion: core.oam.dev/v1beta1
+kind: Application
+metadata:
+  name: kafka
+  namespace: default
+spec:
+  components:
+    - name: kafka
+      type: statefulservice
+      properties:
+        image: debasishbsws/kafka-kraft:3.4.0
+        replicas: 3
+        ports:
+          - port: 9092
+            expose: true
+          - port: 9093
+            expose: false
+        env:
+          - name: REPLICAS
+            value: "3"
+          - name: SERVICE
+            value: kafka-headless
+          - name: NAMESPACE
+            value: default
+          - name: SHARE_DIR
+            value: /mnt/kafka
+          - name: CLUSTER_ID
+            value: oh-sxaDRTcyAr6pFRbXyzA
+          - name: DEFAULT_REPLICATION_FACTOR
+            value: '3'
+          - name: DEFAULT_MIN_INSYNC_REPLICAS
+            value: '2'
+      traits:
+        - type: storage # Set to storage
+          properties:         
+            emptyDir: # EmptyDir type storage
+              - name: kafka-storage
+                mountPath: /mnt/kafka
