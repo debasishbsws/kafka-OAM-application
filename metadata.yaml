@@ -1,4 +1,4 @@
-apiVersion: napptive.com/v1alpha1
+apiVersion: core.napptive.com/v1alpha1
 kind: ApplicationMetadata
 name: "Apache Kafka. Message Broker"
 version: 1.0.0
