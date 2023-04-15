@@ -9,8 +9,8 @@ spec:
       properties:
         image: debasishbsws/kafka-kraft:3.4.0
         replicas: 3
-        # cpu: "200m"                # tune the cpu and memory
-        # memory: 256Mi              # according to your workload
+        cpu: "200m"                # tune the cpu and memory
+        memory: 256Mi              # according to your workload
         ports:
           - port: 9092
             expose: true

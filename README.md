@@ -9,9 +9,9 @@ To get the ClusterIP you can use the command `kubectl get svc` and look for the 
 
 ## How to Deploy and edit configuration
 
-To deploy the application, you can use the command:
+To deploy the application, you can use the playgroung CLI command:
 ```bash
-playground deploy kafka:1.0.0
+playground catalog deploy debasishbiswas/apache-kafka:3.4.0
 ```
 
 It will deploy the application with the default configuration where we will have 3 Brokers.  
@@ -30,6 +30,6 @@ You can configure by changing `env` variables in the `properties` file.
 
 [IBM - KRaft mode Kafka on Kubernetes](https://github.com/IBM/kraft-mode-kafka-on-kubernetes)
 
-[GitHub](https://github.com/debasishbsws/kafka-OAM-application)
+[Updated Image - GitHub](https://github.com/debasishbsws/kafka-OAM-application)
 
 [Test the application](https://github.com/debasishbsws/kafka-OAM-application/blob/master/testing.md)
