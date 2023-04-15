@@ -1,7 +1,7 @@
 apiVersion: core.oam.dev/v1beta1
 kind: Application
 metadata:
-  name: kafka-cluster
+  name: apache-kafka
 spec:
   components:
     - name: kafka
@@ -10,7 +10,7 @@ spec:
         image: debasishbsws/kafka-kraft:3.4.0
         replicas: 3
         # cpu: "200m"                # tune the cpu and memory
-        # memory: 250Mi              # according to your workload
+        # memory: 256Mi              # according to your workload
         ports:
           - port: 9092
             expose: true

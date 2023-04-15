@@ -1,32 +1,51 @@
 apiVersion: core.oam.dev/v1beta1
 kind: Application
 metadata:
-  name: kafka
+  name: apache-kafka
 spec:
   components:
-    - name: zookeeper
-      type: webservice
-      properties:
-        image: docker.io/bitnami/zookeeper:3.8
-        replicas: 1
-        ports:
-        - port: 2181
-          expose: true
-        env:
-        - name: ALLOW_ANONYMOUS_LOGIN
-          value: "yes"
-    - name: broker-0
+    - name: kafka
       type: statefulservice
       properties:
-        image: docker.io/bitnami/kafka:3.4
-        replicas: 1
+        image: debasishbsws/kafka-kraft:3.4.0
+        replicas: 3
+        # cpu: "200m"                # tune the cpu and memory
+        # memory: 256Mi              # according to your workload
         ports:
-        - port: 9092
-          expose: true
+          - port: 9092
+            expose: true
+          - port: 9093
+            expose: true
         env:
-        - name: KAFKA_CFG_ZOOKEEPER_CONNECT
-          value: "zookeeper:2181"
-        - name: KAFKA_CFG_BROKER_ID
-          value: "0"
-        - name: ALLOW_PLAINTEXT_LISTENER
-          value: "yes"
+          - name: REPLICAS
+            value: '3'               # Should be the same as replicas
+          - name: DEFAULT_REPLICATION_FACTOR
+            value: '3'               # Should be less than or equal to replicas
+          - name: DEFAULT_MIN_INSYNC_REPLICAS
+            value: '2'
+          - name: SHARE_DIR
+            value: /mnt/kafka
+          - name: SERVICE
+            value: kafka-headless
+          - name: CLUSTER_ID
+            value: oh-sxaDRTcyAr6pFRbXyzA
+          - name: NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+        # It is recomended to use PVC for kafka storage as it can survive pod restarts
+        # volumeMounts:
+        #   pvc:
+        #   - name: kafka-storage
+        #     mountPath: "/mnt/kafka"
+        #     claimName: "kafka-storage-claim"
+        #     size: 1Gi
+      
+      # EmptyDir type storage is not recommended for use.
+      # if you are using PVC for storage then remove below section
+      traits:
+        - type: storage
+          properties:
+            emptyDir:
+              - name: kafka-storage
+                mountPath: /mnt/kafka
