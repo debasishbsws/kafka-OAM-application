@@ -6,7 +6,7 @@ description: Distributed streaming platform that is used for building real-time 
 keywords:
   - "kafka"
   - "kafka Cluster"
-  - "Message broker"
+  - "message broker"
 license: "Apache License Version 2.0"
 url: "https://kafka.apache.org"
 doc: "https://kafka.apache.org/documentation"
