@@ -29,7 +29,12 @@ The IP `10.100.56.146` is the IP address of the brokers. We will use this IP add
 
 Now, let's create a pod that you can use as a Kafka client:
 ```bash
-kubectl run kafka-client --rm -ti --image bitnami/kafka:3.1.0 -- bash
+kubectl run kafka-client -ti --image bitnami/kafka:3.1.0 -- bash
+```
+
+to connect to the Kafka client:
+```bash
+kubectl exec -ti kafka-client -- bash
 ```
 then inside the container terminal, let's create a topic using the example console producer script `kafka-console-producer.sh`:
 ```bash
