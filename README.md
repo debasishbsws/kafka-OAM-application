@@ -32,4 +32,6 @@ You can configure by changing `env` variables in the `properties` file.
 
 [Updated Image - GitHub](https://github.com/debasishbsws/kafka-OAM-application)
 
+[Blog - Apache Kafka with Open Application Model](https://indrranil.hashnode.dev/apache-kafka-in-open-application-model)
+
 [Test the application](https://github.com/debasishbsws/kafka-OAM-application/blob/master/testing.md)
